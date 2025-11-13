@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TODO EN VENTA</title>
+  <title>VENTA ONLINE DE TODO UN POCO</title>
   <style>
     :root{--c1:#e63946;--c2:#2a9d8f;--c3:#1d3557;--bg:#f9f9f9;--card:#fff}
     *,::before,::after{box-sizing:border-box}
-    body{font-family:system-ui,sans-serif;background:var(--bg);margin:0;padding:12px}
-    h1{color:var(--c1);text-align:center;font-size:1.8rem;margin:0 0 16px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    body{font-family:system-ui,sans-serif;background:var(--bg);margin:0;padding:0}
+    header{background:white;padding:16px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin-bottom:20px}
+    .header-content{display:flex;align-items:center;justify-content:center;gap:12px}
+    .logo{width:50px;height:50px;border-radius:50%;object-fit:cover}
+    h1{color:var(--c1);margin:0;font-size:1.8rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;padding:12px}
     .prod{background:var(--card);border:1px solid #eee;border-radius:6px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
     .prod-img{aspect-ratio:1/1;width:100%;cursor:pointer}
     .prod-img img{width:100%;height:100%;object-fit:cover;display:block}
@@ -38,10 +41,20 @@
     .overlay img{max-width:90vw;max-height:90vh;object-fit:contain}
     .cart-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--c1);color:white;border:none;box-shadow:0 3px 8px rgba(0,0,0,0.3);font-size:1.4rem;cursor:pointer;z-index:999}
     .cart-count{position:absolute;top:-6px;right:-6px;background:#fff;color:var(--c1);border-radius:50%;width:20px;height:20px;font-size:0.7rem;display:flex;align-items:center;justify-content:center}
+    footer{background:var(--c3);color:white;padding:20px;text-align:center;margin-top:30px}
+    .footer-content{max-width:800px;margin:0 auto}
+    .footer-section{margin-bottom:15px}
+    .footer-section h3{color:var(--c2);margin-bottom:8px;font-size:1.1rem}
   </style>
 </head>
 <body>
-  <h1>TODO EN VENTA</h1>
+  <header>
+    <div class="header-content">
+      <img src="https://github.com/KOOWEXA/servidor3/raw/refs/heads/main/logo.jpg" alt="Logo" class="logo">
+      <h1>VENTA ONLINE DE TODO UN POCO</h1>
+    </div>
+  </header>
+
   <div id="grid" class="grid"></div>
   <button id="cartBtn" class="cart-btn">🛒<span id="cartBadge" class="cart-count">0</span></button>
 
@@ -62,28 +75,41 @@
     <img id="modalImg">
   </div>
 
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Horario de Atención</h3>
+        <p>Todos los días: 9:00 AM - 6:00 PM</p>
+      </div>
+      <div class="footer-section">
+        <h3>Ubicación</h3>
+        <p>Praga 3830/ Rico y Ciudamar reparto Zich San Miguel del Padrón</p>
+      </div>
+    </div>
+  </footer>
+
   <script>
     const products = [
-      {id:1,name:"Teléfono Xiaomi Redmi Note 12",stock:5,price:450,currency:"USD"},
-      {id:2,name:"Laptop HP Pavilion 15",stock:2,price:620,currency:"USD"},
-      {id:3,name:"Audífonos Sony WH-1000XM4",stock:8,price:280,currency:"USD"},
-      {id:4,name:"Apple Watch SE",stock:3,price:250,currency:"USD"},
-      {id:5,name:"Bicicleta plegable",stock:4,price:190,currency:"USD"},
-      {id:6,name:"Cafetera Nespresso",stock:7,price:130,currency:"USD"},
-      {id:7,name:"Mochila resistente",stock:12,price:35,currency:"USD"},
-      {id:8,name:"'Hábitos Atómicos'",stock:20,price:18,currency:"USD"},
-      {id:9,name:"Set cuchillos",stock:6,price:75,currency:"USD"},
-      {id:10,name:"Lámpara LED",stock:9,price:28,currency:"USD"},
-      {id:11,name:"Zapatillas Nike",stock:0,price:110,currency:"USD"},
-      {id:12,name:"Funda laptop 15\"",stock:15,price:22,currency:"USD"},
-      {id:13,name:"Cámara WiFi",stock:5,price:65,currency:"USD"},
-      {id:14,name:"Toallas (4pzas)",stock:10,price:32,currency:"USD"},
-      {id:15,name:"Licuadora Oster",stock:4,price:45,currency:"USD"},
-      {id:16,name:"Organizador cables",stock:25,price:9,currency:"USD"},
-      {id:17,name:"Planta artificial",stock:18,price:15,currency:"USD"},
-      {id:18,name:"Tarjeta 128GB",stock:11,price:19,currency:"USD"},
-      {id:19,name:"Adaptador HDMI-VGA",stock:14,price:12,currency:"USD"},
-      {id:20,name:"Cuaderno Moleskine",stock:30,price:24,currency:"USD"}
+      {id:1,name:"#",stock:10,price:0,currency:"USD",image:"pd1.jpg"},
+      {id:2,name:"#",stock:10,price:0,currency:"USD",image:"pd2.jpg"},
+      {id:3,name:"#",stock:10,price:0,currency:"USD",image:"pd3.jpg"},
+      {id:4,name:"#",stock:10,price:0,currency:"USD",image:"pd4.jpg"},
+      {id:5,name:"#",stock:10,price:0,currency:"USD",image:"pd5.jpg"},
+      {id:6,name:"#",stock:10,price:0,currency:"USD",image:"pd6.jpg"},
+      {id:7,name:"#",stock:10,price:0,currency:"USD",image:"pd7.jpg"},
+      {id:8,name:"Altavoz Bluetooth",stock:10,price:0,currency:"USD",image:"pd8.jpg"},
+      {id:9,name:"Monitor 24\"",stock:10,price:179,currency:"USD",image:"pd9.jpg"},
+      {id:10,name:"Teclado Mecánico",stock:10,price:9,currency:"USD",image:"pd10.jpg"},
+      {id:11,name:"Mouse Inalámbrico",stock:10,price:9,currency:"USD",image:"pd11.jpg"},
+      {id:12,name:"Impresora Multifunción",stock:0,price:129,currency:"USD",image:"pd12.jpg"},
+      {id:13,name:"Consola de Videojuegos",stock:0,price:499,currency:"USD",image:"pd13.jpg"},
+      {id:14,name:"Batería Externa",stock:25,price:0,currency:"USD",image:"pd14.jpg"},
+      {id:15,name:"Router WiFi",stock:9,price:69,currency:"USD",image:"pd15.jpg"},
+      {id:16,name:"Disco Duro 1TB",stock:11,price:59,currency:"USD",image:"pd16.jpg"},
+      {id:17,name:"Silla Ergonómica",stock:3,price:199,currency:"USD",image:"pd17.jpg"},
+      {id:18,name:"Mesa de Oficina",stock:2,price:149,currency:"USD",image:"pd18.jpg"},
+      {id:19,name:"Lámpara LED",stock:16,price:35,currency:"USD",image:"pd19.jpg"},
+      {id:20,name:"Ventilador Torre",stock:8,price:75,currency:"USD",image:"pd20.jpg"}
     ];
 
     let cart = [];
@@ -100,10 +126,9 @@
     const createProduct = p => {
       const div = document.createElement('div');
       div.className = 'prod';
-      const imgSrc = `https://picsum.photos/500/500?random=${p.id}`;
       div.innerHTML = `
-        <div class="prod-img" data-src="${imgSrc}">
-          <img src="${imgSrc}" loading="lazy">
+        <div class="prod-img" data-src="${p.image}">
+          <img src="${p.image}" loading="lazy">
         </div>
         <div>
           <h3>${p.name}</h3>
