@@ -41,6 +41,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
+      flex-wrap: wrap;
     }
     
     .logo {
@@ -53,7 +54,7 @@
     h1 {
       color: var(--c1);
       margin: 0;
-      font-size: 1.8rem;
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
     }
     
     .grid {
@@ -63,6 +64,14 @@
       padding: 12px;
     }
     
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
+        padding: 8px;
+      }
+    }
+    
     .prod {
       background: var(--card);
       border: 1px solid #eee;
@@ -70,6 +79,8 @@
       overflow: hidden;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     
     .prod:hover {
@@ -92,18 +103,39 @@
     
     .prod > div {
       padding: 10px 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     
     .prod h3 {
       font-size: 0.95rem;
       margin: 4px 0;
       font-weight: 600;
+      flex: 1;
     }
     
     .price {
       color: var(--c2);
       font-weight: 700;
       font-size: 1.1rem;
+      margin: 4px 0;
+    }
+    
+    .benefits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 6px 0;
+    }
+    
+    .benefit-tag {
+      background: #f0f8ff;
+      color: var(--c3);
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 10px;
+      border: 1px solid #d1e7ff;
     }
     
     .stock {
@@ -125,12 +157,13 @@
     .btn {
       display: block;
       width: 100%;
-      padding: 6px;
+      padding: 8px;
       border: none;
       border-radius: 4px;
       font-weight: 600;
       cursor: pointer;
       transition: background-color 0.2s;
+      margin-top: auto;
     }
     
     .btn.add {
@@ -150,28 +183,35 @@
     .cart {
       position: fixed;
       top: 0;
-      right: -320px;
-      width: 300px;
-      height: 100vh;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: white;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-      padding: 16px;
-      transition: 0.3s;
       z-index: 1000;
       display: flex;
       flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      overflow: hidden;
     }
     
     .cart.open {
-      right: 0;
+      transform: translateX(0);
     }
     
-    .cart h2 {
-      margin: 0 0 16px;
-      font-size: 1.3rem;
+    .cart-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid #eee;
+      background: white;
+      flex-shrink: 0;
+    }
+    
+    .cart-header h2 {
+      margin: 0;
+      font-size: 1.3rem;
     }
     
     .close {
@@ -180,20 +220,37 @@
       background: none;
       border: none;
       color: #777;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .close:hover {
+      background: #f5f5f5;
+    }
+    
+    .cart-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
     }
     
     .items {
-      max-height: 60vh;
-      overflow: auto;
-      padding-right: 4px;
       flex: 1;
+      overflow-y: auto;
+      padding-right: 4px;
     }
     
     .item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
+      padding: 12px 0;
       font-size: 0.9rem;
       border-bottom: 1px solid #eee;
     }
@@ -219,8 +276,8 @@
     }
     
     .quantity-btn {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: none;
       background: var(--c3);
@@ -229,7 +286,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
     }
     
     .quantity-btn:disabled {
@@ -244,18 +301,30 @@
       cursor: pointer;
       font-size: 1.1rem;
       margin-left: 4px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .remove-btn:hover {
+      background: #ffeaea;
     }
     
     .total {
       font-weight: 700;
       margin: 12px 0;
       border-top: 1px solid #eee;
-      padding-top: 8px;
+      padding-top: 12px;
       font-size: 1.1rem;
+      flex-shrink: 0;
     }
     
     .form {
       margin-top: 16px;
+      flex-shrink: 0;
     }
     
     .form div {
@@ -266,12 +335,12 @@
       display: block;
       font-weight: 600;
       font-size: 0.85rem;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
     
     input {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 0.9rem;
@@ -285,7 +354,7 @@
     .submit {
       background: var(--success);
       color: white;
-      padding: 10px;
+      padding: 12px;
       border: none;
       border-radius: 4px;
       width: 100%;
@@ -330,17 +399,20 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 56px;
-      height: 56px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background: var(--c1);
       color: white;
       border: none;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-      font-size: 1.4rem;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+      font-size: 1.5rem;
       cursor: pointer;
       z-index: 999;
       transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .cart-btn:hover {
@@ -354,13 +426,14 @@
       background: #fff;
       color: var(--c1);
       border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 0.7rem;
+      width: 22px;
+      height: 22px;
+      font-size: 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
+      border: 2px solid var(--c1);
     }
     
     footer {
@@ -405,6 +478,7 @@
       opacity: 0;
       transform: translateX(100%);
       transition: opacity 0.3s, transform 0.3s;
+      max-width: 300px;
     }
     
     .notification.show {
@@ -423,6 +497,20 @@
     .notification.info {
       background: var(--c3);
     }
+    
+    @media (min-width: 768px) {
+      .cart {
+        width: 400px;
+        left: auto;
+        right: 0;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        transform: translateX(100%);
+      }
+      
+      .cart.open {
+        transform: translateX(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -437,15 +525,20 @@
   <button id="cartBtn" class="cart-btn">🛒<span id="cartBadge" class="cart-count">0</span></button>
 
   <aside id="cart" class="cart">
-    <h2>Carrito <button class="close" id="closeCart">&times;</button></h2>
-    <div id="cartItems" class="items"></div>
-    <div id="cartTotal" class="total"></div>
-    <form id="form" class="form">
-      <div><label>Nombre</label><input id="name" required></div>
-      <div><label>Teléfono</label><input id="phone" type="tel" required></div>
-      <div><label>CI</label><input id="ci" required></div>
-      <button type="submit" class="submit">Enviar pedido por WhatsApp</button>
-    </form>
+    <div class="cart-header">
+      <h2>Carrito de Compras</h2>
+      <button class="close" id="closeCart">&times;</button>
+    </div>
+    <div class="cart-content">
+      <div id="cartItems" class="items"></div>
+      <div id="cartTotal" class="total"></div>
+      <form id="form" class="form">
+        <div><label>Nombre completo</label><input id="name" required></div>
+        <div><label>Teléfono</label><input id="phone" type="tel" required></div>
+        <div><label>Carnet de Identidad</label><input id="ci" required></div>
+        <button type="submit" class="submit">Enviar pedido por WhatsApp</button>
+      </form>
+    </div>
   </aside>
 
   <div id="overlay" class="overlay">
@@ -534,6 +627,11 @@
         <div>
           <h3>${product.name}</h3>
           <div class="price">${formatPrice(product.price, product.currency)}</div>
+          <div class="benefits">
+            <span class="benefit-tag">Sin garantía</span>
+            <span class="benefit-tag">Con mensajería</span>
+            <span class="benefit-tag">Sin factura</span>
+          </div>
           <div class="stock ${stockClass}">Stock: ${product.stock > 0 ? product.stock : 'AGOTADO'}</div>
           <button class="btn add" ${product.stock <= 0 ? 'disabled' : ''} data-id="${product.id}">
             ➕ Agregar al carrito
@@ -712,26 +810,32 @@
         return;
       }
       
-      let message = `¡NUEVO PEDIDO!%0A%0A`;
-      message += `*Información del cliente:*%0A`;
-      message += `• Nombre: ${name}%0A`;
-      message += `• CI: ${ci}%0A`;
-      message += `• Teléfono: ${phone}%0A%0A`;
+      let message = `🛒 *PEDIDO NUEVO - TODO UN POCO* 🛒%0A%0A`;
+      message += `📋 *INFORMACIÓN DEL CLIENTE*%0A`;
+      message += `👤 *Nombre:* ${name}%0A`;
+      message += `🆔 *CI:* ${ci}%0A`;
+      message += `📞 *Teléfono:* ${phone}%0A%0A`;
       
-      message += `*Detalles del pedido:*%0A`;
+      message += `🛍️ *DETALLES DEL PEDIDO*%0A`;
+      message += `══════════════════════════%0A`;
       let total = 0;
       
       cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        message += `${index + 1}. ${item.name}%0A`;
-        message += `   Cantidad: ${item.quantity}%0A`;
-        message += `   Precio unitario: ${formatPrice(item.price, item.currency)}%0A`;
-        message += `   Subtotal: ${formatPrice(itemTotal.toFixed(2), item.currency)}%0A%0A`;
+        message += `*${index + 1}. ${item.name}*%0A`;
+        message += `   📦 Cantidad: ${item.quantity}%0A`;
+        message += `   💲 Precio unitario: ${formatPrice(item.price, item.currency)}%0A`;
+        message += `   💰 Subtotal: ${formatPrice(itemTotal.toFixed(2), item.currency)}%0A%0A`;
       });
       
-      message += `*TOTAL DEL PEDIDO: ${formatPrice(total.toFixed(2), 'USD')}*%0A%0A`;
-      message += `¡Gracias por tu compra!`;
+      message += `══════════════════════════%0A`;
+      message += `💰 *TOTAL DEL PEDIDO: ${formatPrice(total.toFixed(2), 'USD')}*%0A%0A`;
+      message += `📦 *Servicios incluidos:*%0A`;
+      message += `✅ Garantía en todos los productos%0A`;
+      message += `🚚 Mensajería disponible%0A`;
+      message += `🧾 Factura incluida%0A%0A`;
+      message += `¡Gracias por tu compra! 🎉`;
       
       const whatsappNumber = '5355113276';
       
@@ -744,6 +848,7 @@
       updateCart();
       updateCartBadge();
       form.reset();
+      cartEl.classList.remove('open');
       
       showNotification('Pedido enviado correctamente', 'success');
     };
