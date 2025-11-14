@@ -413,6 +413,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+    }
+    
+    .cart-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     
     .cart-btn:hover {
@@ -522,7 +529,10 @@
   </header>
 
   <div id="grid" class="grid"></div>
-  <button id="cartBtn" class="cart-btn">🛒<span id="cartBadge" class="cart-count">0</span></button>
+  <button id="cartBtn" class="cart-btn">
+    <img src="https://github.com/KOOWEXA/servidor3/raw/refs/heads/main/logo.jpg" alt="Carrito">
+    <span id="cartBadge" class="cart-count">0</span>
+  </button>
 
   <aside id="cart" class="cart">
     <div class="cart-header">
@@ -556,6 +566,10 @@
       <div class="footer-section">
         <h3>Ubicación</h3>
         <p>Praga 3830/ Rico y Ciudamar reparto Zich San Miguel del Padrón</p>
+      </div>
+      <div class="footer-section">
+        <h3>Formas de Pago</h3>
+        <p>Aceptamos USD y CUP al cambio según la cantidad</p>
       </div>
     </div>
   </footer>
@@ -810,16 +824,21 @@
         return;
       }
       
+      // Mensaje mejorado y más detallado
       let message = `🛒 *PEDIDO NUEVO - TODO UN POCO* 🛒%0A%0A`;
+      
+      // Información del cliente
       message += `📋 *INFORMACIÓN DEL CLIENTE*%0A`;
+      message += `══════════════════════════%0A`;
       message += `👤 *Nombre:* ${name}%0A`;
-      message += `🆔 *CI:* ${ci}%0A`;
+      message += `🆔 *Carnet de Identidad:* ${ci}%0A`;
       message += `📞 *Teléfono:* ${phone}%0A%0A`;
       
-      message += `🛍️ *DETALLES DEL PEDIDO*%0A`;
+      // Resumen del pedido
+      message += `🛍️ *RESUMEN DEL PEDIDO*%0A`;
       message += `══════════════════════════%0A`;
-      let total = 0;
       
+      let total = 0;
       cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
@@ -831,10 +850,21 @@
       
       message += `══════════════════════════%0A`;
       message += `💰 *TOTAL DEL PEDIDO: ${formatPrice(total.toFixed(2), 'USD')}*%0A%0A`;
-      message += `📦 *Servicios incluidos:*%0A`;
-      message += `✅ Garantía en todos los productos%0A`;
-      message += `🚚 Mensajería disponible%0A`;
-      message += `🧾 Factura incluida%0A%0A`;
+      
+      // Información adicional
+      message += `📝 *INFORMACIÓN ADICIONAL*%0A`;
+      message += `══════════════════════════%0A`;
+      message += `📅 *Fecha del pedido:* ${new Date().toLocaleDateString('es-ES')}%0A`;
+      message += `⏰ *Hora del pedido:* ${new Date().toLocaleTimeString('es-ES')}%0A`;
+      message += `💳 *Formas de pago aceptadas:* USD y CUP al cambio según la cantidad%0A%0A`;
+      
+      // Información de contacto
+      message += `📍 *Ubicación de la tienda:*%0A`;
+      message += `Praga 3830/ Rico y Ciudamar reparto Zich San Miguel del Padrón%0A%0A`;
+      
+      message += `⏰ *Horario de atención:*%0A`;
+      message += `Todos los días: 9:00 AM - 6:00 PM%0A%0A`;
+      
       message += `¡Gracias por tu compra! 🎉`;
       
       const whatsappNumber = '5355113276';
